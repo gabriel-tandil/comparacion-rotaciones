@@ -1,8 +1,10 @@
 package geometria.cuaterniones;
 
+import geometria.Rotacion;
+import geometria.Vector;
 import geometria.esferica.CoordenadaEsferica;
 
-public class Cuaternion {
+public class Cuaternion implements Rotacion,Vector{
 	private double x;
 	private double y;
 	private double z;
@@ -49,6 +51,12 @@ public class Cuaternion {
 
 	public CoordenadaEsferica aEsferica() {
 		return null;
+	}
+
+	@Override
+	public void rotar(Vector v) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

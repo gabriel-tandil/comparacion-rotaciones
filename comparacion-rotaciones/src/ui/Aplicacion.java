@@ -25,11 +25,7 @@ import org.swtchart.ISeries.SeriesType;
 import util.RotacionUtil;
 
 public class Aplicacion {
-	private static double[] ySeries1 = new double[2];
-	private static double[] ySeries2 = new double[2];
-	private Chart chart;
-	private static final String[] cagetorySeries = { "Datos como Cuaterniones",
-			"Datos como Esfericas", };
+
 	protected Shell shlComparacinRotacionesEsfericas;
 
 	/**
@@ -89,17 +85,25 @@ public class Aplicacion {
 
 		final Combo combo_1 = new Combo(composite_1, SWT.NONE);
 		combo_1.setLayoutData(new RowData(128, SWT.DEFAULT));
-		combo_1.setItems(new String[] { "100", "1000", "10000", "100000",
-				"1000000" });
-		combo_1.select(0);
+		combo_1.setItems(new String[] { "1", "10", "100", "1000", "10000",
+				"100000", "1000000", "10000000" });
+		combo_1.select(2);
 
 		Button btnIniciar = new Button(composite_1, SWT.NONE);
+		btnIniciar.setText("Iniciar");
+		btnIniciar.setLayoutData(new RowData(109, SWT.DEFAULT));
+
+		final Chart chart = createChart(composite);
+		GridData gd_chart = new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1);
+		chart.setLayoutData(gd_chart);
 		btnIniciar.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				double[][] tiempos = RotacionUtil.iniciarComparacion((combo_1
-						.getSelectionIndex() + 1) * 100);
+				// invoco a ejecutar las rotaciones
+				double[][] tiempos = RotacionUtil.iniciarComparacion((int) Math.pow(10, combo_1
+						.getSelectionIndex() ));
 
+				// Y actualizo la tabla con los tiempos
 				IBarSeries series1 = (IBarSeries) chart.getSeriesSet()
 						.createSeries(SeriesType.BAR, "Rot. con Cuaterniones");
 				series1.setYSeries(tiempos[0]);
@@ -110,17 +114,10 @@ public class Aplicacion {
 				series2.setYSeries(tiempos[1]);
 				series2.setBarColor(Display.getDefault().getSystemColor(
 						SWT.COLOR_GREEN));
-				// adjust the axis range
 				chart.getAxisSet().adjustRange();
 				chart.redraw();
 			}
 		});
-		btnIniciar.setLayoutData(new RowData(109, SWT.DEFAULT));
-		btnIniciar.setText("Iniciar");
-
-		chart = createChart(composite);
-		GridData gd_chart = new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1);
-		chart.setLayoutData(gd_chart);
 
 	}
 
@@ -137,14 +134,18 @@ public class Aplicacion {
 		final Chart chart = new Chart(parent, SWT.NONE);
 		chart.getTitle().setText("Comparacion de Tiempos");
 
-		// set category
+		// categorias
 		chart.getAxisSet().getXAxis(0).enableCategory(true);
-		chart.getAxisSet().getXAxis(0).setCategorySeries(cagetorySeries);
-		// chart.getAxisSet().getXAxis(0).getTick().setTickLabelAngle(45);
+		chart.getAxisSet()
+				.getXAxis(0)
+				.setCategorySeries(
+						new String[] { "Datos como Cuaterniones",
+								"Datos como Esfericas" });
+
 		chart.getAxisSet().getXAxis(0).getTitle().setVisible(false);
 		chart.getAxisSet().getYAxis(0).getTitle().setText("Tiempo (ms.)");
 
-		// add mouse move listener to open tooltip on data point
+		// tooltip
 		chart.getPlotArea().addMouseMoveListener(new MouseMoveListener() {
 			public void mouseMove(MouseEvent e) {
 				for (ISeries series : chart.getSeriesSet().getSeries()) {

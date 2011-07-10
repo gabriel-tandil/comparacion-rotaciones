@@ -1,5 +1,6 @@
 package util;
 
+import geometria.Rotacion;
 import geometria.cuaterniones.Cuaternion;
 import geometria.esferica.CoordenadaEsferica;
 import geometria.esferica.RotacionEsferica;
@@ -13,28 +14,27 @@ public class RotacionUtil {
 		double[][] tiempos = new double[2][2];
 
 		try {
-			List<RotacionEsferica> tablaEsfericas = new ArrayList<RotacionEsferica>(
-					i);
-			List<Cuaternion> tablaCuaterniones = new ArrayList<Cuaternion>(i);
+			List<Rotacion> tablaEsfericas = new ArrayList<Rotacion>(i);
+			List<Rotacion> tablaCuaterniones = new ArrayList<Rotacion>(i);
 			llenarTablas(tablaEsfericas, tablaCuaterniones, i);
 			// rotaciones cuaterniones datos cuaterniones
 			long tiempo = System.currentTimeMillis();
-			Thread.sleep(100);
+			rotarCuaterniones(tablaCuaterniones);
 			tiempos[0][0] = System.currentTimeMillis() - tiempo;
 
 			// rotaciones cuaterniones datos esfericas
 			tiempo = System.currentTimeMillis();
-			Thread.sleep(200);
+			rotarCuaterniones(tablaEsfericas);
 			tiempos[0][1] = System.currentTimeMillis() - tiempo;
 
 			// rotaciones esfericas datos cuaterniones
 			tiempo = System.currentTimeMillis();
-			Thread.sleep(300);
+			rotarEsfericas(tablaCuaterniones);
 			tiempos[1][0] = System.currentTimeMillis() - tiempo;
 
 			// rotaciones esfericas datos esfericas
 			tiempo = System.currentTimeMillis();
-			Thread.sleep(400);
+			rotarEsfericas(tablaEsfericas);
 			tiempos[1][1] = System.currentTimeMillis() - tiempo;
 
 		} catch (Exception e) {
@@ -44,8 +44,18 @@ public class RotacionUtil {
 
 	}
 
-	private static void llenarTablas(List<RotacionEsferica> tablaEsfericas,
-			List<Cuaternion> tablaCuaterniones, int cantidad) {
+	private static void rotarCuaterniones(List<Rotacion> tabla) {
+		// TODO Auto-generated method stub
+
+	}
+
+	private static void rotarEsfericas(List<Rotacion> tabla) {
+		// TODO Auto-generated method stub
+
+	}
+
+	private static void llenarTablas(List<Rotacion> tablaEsfericas,
+			List<Rotacion> tablaCuaterniones, int cantidad) {
 
 		for (int i = 0; i < cantidad; i++) {
 			CoordenadaEsferica coordenadaEsferica = new CoordenadaEsferica(
