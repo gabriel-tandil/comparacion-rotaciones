@@ -1,8 +1,9 @@
 package geometria.esferica;
 
+import geometria.Vector;
 import geometria.cuaterniones.Cuaternion;
 
-public class CoordenadaEsferica {
+public class CoordenadaEsferica implements Vector{
 
 	private double lambda, phi, radio;
 
