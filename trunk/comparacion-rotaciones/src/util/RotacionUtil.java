@@ -6,7 +6,6 @@ public class RotacionUtil {
 		double[][] tiempos=new double[2][2];
 
 		return tiempos;
-		// TODO Auto-generated method stub
 		
 	}
 
