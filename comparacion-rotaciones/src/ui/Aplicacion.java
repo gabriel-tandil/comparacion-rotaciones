@@ -25,8 +25,9 @@ import org.swtchart.ISeries.SeriesType;
 import util.RotacionUtil;
 
 public class Aplicacion {
-	private static final double[] ySeries1 = { 3.0, 2.1 };
-	private static final double[] ySeries2 = { 2.0, 3.1 };
+	private static double[] ySeries1 = new double[2];
+	private static double[] ySeries2 = new double[2];
+	private Chart chart;
 	private static final String[] cagetorySeries = { "Datos como Cuaterniones",
 			"Datos como Esfericas", };
 	protected Shell shlComparacinRotacionesEsfericas;
@@ -98,12 +99,26 @@ public class Aplicacion {
 			public void widgetSelected(SelectionEvent e) {
 				double[][] tiempos = RotacionUtil.iniciarComparacion((combo_1
 						.getSelectionIndex() + 1) * 100);
+
+				IBarSeries series1 = (IBarSeries) chart.getSeriesSet()
+						.createSeries(SeriesType.BAR, "Rot. con Cuaterniones");
+				series1.setYSeries(tiempos[0]);
+
+				IBarSeries series2 = (IBarSeries) chart
+						.getSeriesSet()
+						.createSeries(SeriesType.BAR, "Rot. con Trig. Esferica");
+				series2.setYSeries(tiempos[1]);
+				series2.setBarColor(Display.getDefault().getSystemColor(
+						SWT.COLOR_GREEN));
+				// adjust the axis range
+				chart.getAxisSet().adjustRange();
+				chart.redraw();
 			}
 		});
 		btnIniciar.setLayoutData(new RowData(109, SWT.DEFAULT));
 		btnIniciar.setText("Iniciar");
 
-		Chart chart = createChart(composite);
+		chart = createChart(composite);
 		GridData gd_chart = new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1);
 		chart.setLayoutData(gd_chart);
 
@@ -128,20 +143,6 @@ public class Aplicacion {
 		// chart.getAxisSet().getXAxis(0).getTick().setTickLabelAngle(45);
 		chart.getAxisSet().getXAxis(0).getTitle().setVisible(false);
 		chart.getAxisSet().getYAxis(0).getTitle().setText("Tiempo (ms.)");
-
-		// create bar series
-		IBarSeries series1 = (IBarSeries) chart.getSeriesSet().createSeries(
-				SeriesType.BAR, "Rot. con Cuaterniones");
-		series1.setYSeries(ySeries1);
-
-		IBarSeries series2 = (IBarSeries) chart.getSeriesSet().createSeries(
-				SeriesType.BAR, "Rot. con Trig. Esferica");
-		series2.setYSeries(ySeries2);
-		series2.setBarColor(Display.getDefault()
-				.getSystemColor(SWT.COLOR_GREEN));
-
-		// adjust the axis range
-		chart.getAxisSet().adjustRange();
 
 		// add mouse move listener to open tooltip on data point
 		chart.getPlotArea().addMouseMoveListener(new MouseMoveListener() {

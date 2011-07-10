@@ -9,13 +9,13 @@ public class CoordenadaEsferica {
 	public CoordenadaEsferica(double lambda, double phi) {
 		this.lambda = lambda;
 		this.phi = phi;
-		this.radio = 1;
+		this.setRadio(1);
 	}
 
 	public CoordenadaEsferica(double lambda, double phi, double radio) {
 		this.lambda = lambda;
 		this.phi = phi;
-		this.radio = radio;
+		this.setRadio(radio);
 	}
 
 	public Cuaternion aCuaternion() {
@@ -36,5 +36,13 @@ public class CoordenadaEsferica {
 
 	public double getPhi() {
 		return phi;
+	}
+
+	public void setRadio(double radio) {
+		this.radio = radio;
+	}
+
+	public double getRadio() {
+		return radio;
 	}
 }
