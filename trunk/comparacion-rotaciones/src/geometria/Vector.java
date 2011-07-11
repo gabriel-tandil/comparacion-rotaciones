@@ -1,5 +1,6 @@
 package geometria;
 
-public interface Vector {
+public interface Vector
+{
 
 }
