@@ -62,8 +62,8 @@ public class RotacionUtil
 
 		for (int i = 0; i < cantidad; i++)
 		{
-			final CoordenadaEsferica coordenadaEsferica = new CoordenadaEsferica(Math.random(), Math.random());
-			final RotacionEsferica rotacionEsferica = new RotacionEsferica(coordenadaEsferica, Math.random());
+			final CoordenadaEsferica coordenadaEsferica = new CoordenadaEsferica((1-Math.random())*2*Math.PI*-1, Math.random()*Math.PI);
+			final RotacionEsferica rotacionEsferica = new RotacionEsferica(coordenadaEsferica, Math.random()*2*Math.PI);
 			final Cuaternion cuaternion = rotacionEsferica.aCuaternion();
 
 			tablaEsfericas.add(rotacionEsferica);
