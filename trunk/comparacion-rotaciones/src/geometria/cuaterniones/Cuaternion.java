@@ -51,8 +51,6 @@ public class Cuaternion implements Rotacion, Vector {
 
 	}
 
-
-
 	public Cuaternion rotar(Cuaternion v) {
 		Cuaternion rotado = this.mult(v).mult(this.conjugado());
 		return rotado;
@@ -79,19 +77,16 @@ public class Cuaternion implements Rotacion, Vector {
 
 	}
 
-	// return the Cuaternion conjugate
 	public Cuaternion conjugado() {
 		return new Cuaternion(angulo, -x, -y, -z);
 	}
 
-	// return a new Cuaternion whose value is (this + b)
 	public Cuaternion suma(Cuaternion b) {
 		Cuaternion a = this;
 		return new Cuaternion(a.angulo + b.angulo, a.x + b.x, a.y + b.y, a.z
 				+ b.z);
 	}
 
-	// return a new Cuaternion whose value is (this * b)
 	public Cuaternion mult(Cuaternion b) {
 		Cuaternion a = this;
 		double y0 = a.angulo * b.angulo - a.x * b.x - a.y * b.y - a.z * b.z;
@@ -101,7 +96,6 @@ public class Cuaternion implements Rotacion, Vector {
 		return new Cuaternion(y0, y1, y2, y3);
 	}
 
-	// return a new Cuaternion whose value is the inverse of this
 	public Cuaternion inverso() {
 		double d = angulo * angulo + x * x + y * y + z * z;
 		return new Cuaternion(angulo / d, -x / d, -y / d, -z / d);
