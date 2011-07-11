@@ -25,7 +25,7 @@ public class RotacionUtil
 			final List<Rotacion> tablaCuaterniones = new ArrayList<Rotacion>(i);
 			llenarTablas(tablaEsfericas, tablaCuaterniones, i);
 			final CoordenadaEsferica vectorEsferico = new CoordenadaEsferica(0, 0);
-			final Cuaternion vectorCuaternion = new Cuaternion(0, 0, 0, 0);
+			final Cuaternion vectorCuaternion = vectorEsferico.aCuaternion();
 
 			// rotaciones cuaterniones datos cuaterniones
 			long tiempo = System.currentTimeMillis();
