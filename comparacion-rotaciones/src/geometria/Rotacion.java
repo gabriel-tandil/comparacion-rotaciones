@@ -1,5 +1,7 @@
 package geometria;
 
-public interface Rotacion {
+public interface Rotacion
+{
 	void rotar(Vector v);
+
 }
