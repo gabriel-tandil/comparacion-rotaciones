@@ -122,8 +122,8 @@ public class Aplicacion
 
 		final Combo combo_1 = new Combo(composite_1, SWT.NONE);
 		combo_1.setLayoutData(new RowData(128, SWT.DEFAULT));
-		combo_1.setItems(new String[] { "1", "10", "100", "1000", "10000", "100000", "1000000", "10000000" });
-		combo_1.select(2);
+		combo_1.setItems(new String[] { "1", "10", "100", "1000", "10000", "100000", "1000000" });
+		combo_1.select(4);
 
 		final Button btnIniciar = new Button(composite_1, SWT.NONE);
 		btnIniciar.setText("Iniciar");
