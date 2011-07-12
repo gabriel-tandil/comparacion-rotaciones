@@ -31,23 +31,25 @@ public class RotacionUtil
 			long tiempo = System.currentTimeMillis();
 			rotarLista(tablaCuaterniones, vectorCuaternion, CUATERNIONES);
 			tiempos[0][0] = System.currentTimeMillis() - tiempo;
+System.out.println(tiempos[0][0]);
 
-			// rotaciones cuaterniones datos esfericas
+// rotaciones cuaterniones datos esfericas
 			tiempo = System.currentTimeMillis();
-
 			rotarLista(tablaEsfericas, vectorEsferico, CUATERNIONES);
 			tiempos[0][1] = System.currentTimeMillis() - tiempo;
-
+			System.out.println(tiempos[0][1]);
+			
 			// rotaciones esfericas datos cuaterniones
 			tiempo = System.currentTimeMillis();
 			rotarLista(tablaCuaterniones, vectorCuaternion, ESFERICAS);
 			tiempos[1][0] = System.currentTimeMillis() - tiempo;
-
+			System.out.println(tiempos[1][0]);
+			
 			// rotaciones esfericas datos esfericas
 			tiempo = System.currentTimeMillis();
 			rotarLista(tablaEsfericas, vectorEsferico, ESFERICAS);
 			tiempos[1][1] = System.currentTimeMillis() - tiempo;
-
+			System.out.println(tiempos[1][1]);
 		}
 		catch (final Exception e)
 		{
@@ -62,7 +64,7 @@ public class RotacionUtil
 
 		for (int i = 0; i < cantidad; i++)
 		{
-			final CoordenadaEsferica coordenadaEsferica = new CoordenadaEsferica((1-Math.random())*2*Math.PI*-1, Math.random()*Math.PI);
+			final CoordenadaEsferica coordenadaEsferica = new CoordenadaEsferica((1-Math.random())*2*Math.PI, Math.random()*Math.PI);
 			final RotacionEsferica rotacionEsferica = new RotacionEsferica(coordenadaEsferica, Math.random()*2*Math.PI);
 			final Cuaternion cuaternion = rotacionEsferica.aCuaternion();
 
@@ -76,8 +78,11 @@ public class RotacionUtil
 		for (final Object element : tabla)
 		{
 			final Rotacion rotacion = (Rotacion) element;
-			if (metodo.equals(CUATERNIONES)) RotacionEsferica.rotar(rotacion, vector);
-			if (metodo.equals(ESFERICAS)) Cuaternion.rotar(rotacion, vector);
+//			if (metodo.equals(CUATERNIONES)) Cuaternion.rotar(rotacion, vector);
+//			if (metodo.equals(ESFERICAS)) RotacionEsferica.rotar(rotacion, vector);
+			if (metodo.equals(CUATERNIONES))System.out.println(Cuaternion.rotar(rotacion, vector));
+			if (metodo.equals(ESFERICAS)) System.out.println(((CoordenadaEsferica)RotacionEsferica.rotar(rotacion, vector)).aCuaternion());
+
 		}
 
 	}
