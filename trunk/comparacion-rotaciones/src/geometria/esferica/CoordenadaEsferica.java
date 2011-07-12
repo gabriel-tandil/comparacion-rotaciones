@@ -24,8 +24,9 @@ public class CoordenadaEsferica implements Vector
 
 	public Cuaternion aCuaternion()
 	{
-	    double x = radio*Math.sin(phi)*Math.cos(lambda); 
-	    double y = radio*Math.sin(phi)*Math.sin(lambda); 
+		double sinPhi=Math.sin(phi);
+	    double x = radio*sinPhi*Math.cos(lambda); 
+	    double y = radio*sinPhi*Math.sin(lambda); 
 	    double z = radio*Math.cos(phi); 
 		
 		return new Cuaternion(x, y, z);
