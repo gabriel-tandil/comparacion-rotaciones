@@ -12,19 +12,23 @@ public class CoordenadaEsferica implements Vector
 	{
 		this.lambda = lambda;
 		this.phi = phi;
-		this.setRadio(1);
+		this.radio=1;
 	}
 
 	public CoordenadaEsferica(double lambda, double phi, double radio)
 	{
 		this.lambda = lambda;
 		this.phi = phi;
-		this.setRadio(radio);
+		this.radio=radio;
 	}
 
 	public Cuaternion aCuaternion()
 	{
-		return null;
+	    double x = radio*Math.sin(phi)*Math.cos(lambda); 
+	    double y = radio*Math.sin(phi)*Math.sin(lambda); 
+	    double z = radio*Math.cos(phi); 
+		
+		return new Cuaternion(x, y, z);
 	}
 
 	public double getLambda()
