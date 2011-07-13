@@ -23,33 +23,34 @@ public class RotacionUtil
 		{
 			final List<Rotacion> tablaEsfericas = new ArrayList<Rotacion>(i);
 			final List<Rotacion> tablaCuaterniones = new ArrayList<Rotacion>(i);
+			final List<Vector> tablaVectoresEsfericas = new ArrayList<Vector>(i);
+			final List<Vector> tablaVectoresCuaterniones = new ArrayList<Vector>(i);
 			llenarTablas(tablaEsfericas, tablaCuaterniones, i);
-			final CoordenadaEsferica vectorEsferico = new CoordenadaEsferica(0, 0);
-			final Cuaternion vectorCuaternion = vectorEsferico.aCuaternion();
+			llenarTablasVectores(tablaVectoresEsfericas, tablaVectoresCuaterniones, i);
 
 			// rotaciones cuaterniones datos cuaterniones
 			long tiempo = System.currentTimeMillis();
-			rotarLista(tablaCuaterniones, vectorCuaternion, CUATERNIONES);
+			rotarLista(tablaCuaterniones, tablaVectoresCuaterniones, CUATERNIONES);
 			tiempos[0][0] = System.currentTimeMillis() - tiempo;
-System.out.println(tiempos[0][0]);
+	//		 System.out.println("Rotacion concuaterniones, datos cuaterniones: "+tiempos[0][0]);
 
-// rotaciones cuaterniones datos esfericas
+			// rotaciones cuaterniones datos esfericas
 			tiempo = System.currentTimeMillis();
-			rotarLista(tablaEsfericas, vectorEsferico, CUATERNIONES);
+			rotarLista(tablaEsfericas, tablaVectoresEsfericas, CUATERNIONES);
 			tiempos[0][1] = System.currentTimeMillis() - tiempo;
-			System.out.println(tiempos[0][1]);
-			
+		//	System.out.println("Rotacion concuaterniones, datos esfericas: "+tiempos[0][1]);
+
 			// rotaciones esfericas datos cuaterniones
 			tiempo = System.currentTimeMillis();
-			rotarLista(tablaCuaterniones, vectorCuaternion, ESFERICAS);
+			rotarLista(tablaCuaterniones, tablaVectoresCuaterniones, ESFERICAS);
 			tiempos[1][0] = System.currentTimeMillis() - tiempo;
-			System.out.println(tiempos[1][0]);
-			
+	//		System.out.println("Rotacion esfericas, datos cuaterniones: "+tiempos[1][0]);
+
 			// rotaciones esfericas datos esfericas
 			tiempo = System.currentTimeMillis();
-			rotarLista(tablaEsfericas, vectorEsferico, ESFERICAS);
+			rotarLista(tablaEsfericas, tablaVectoresEsfericas, ESFERICAS);
 			tiempos[1][1] = System.currentTimeMillis() - tiempo;
-			System.out.println(tiempos[1][1]);
+		//	System.out.println("Rotacion esfericas, datos esfericas: "+tiempos[1][1]);
 		}
 		catch (final Exception e)
 		{
@@ -64,48 +65,66 @@ System.out.println(tiempos[0][0]);
 
 		for (int i = 0; i < cantidad; i++)
 		{
-			final CoordenadaEsferica coordenadaEsferica = new CoordenadaEsferica((1-Math.random())*2*Math.PI, Math.random()*Math.PI);
-			final RotacionEsferica rotacionEsferica = new RotacionEsferica(coordenadaEsferica, Math.random()*2*Math.PI);
+			final CoordenadaEsferica coordenadaEsferica = new CoordenadaEsferica((1 - Math.random()) *  Math.PI, Math.random() * Math.PI);
+			final RotacionEsferica rotacionEsferica = new RotacionEsferica(coordenadaEsferica, Math.random() * 2 * Math.PI);
 			final Cuaternion cuaternion = rotacionEsferica.aCuaternion();
 
 			tablaEsfericas.add(rotacionEsferica);
 			tablaCuaterniones.add(cuaternion);
 		}
 	}
-
-	private static void rotarLista(List<Rotacion> tabla, Vector vector, String metodo)
+	private static void llenarTablasVectores(List<Vector> tablaEsfericas, List<Vector> tablaCuaterniones, int cantidad)
 	{
-		for (final Object element : tabla)
-		{
-			final Rotacion rotacion = (Rotacion) element;
-			if (metodo.equals(CUATERNIONES)) Cuaternion.rotar(rotacion, vector);
-			if (metodo.equals(ESFERICAS)) RotacionEsferica.rotar(rotacion, vector);
-//			if (metodo.equals(CUATERNIONES)) System.out.println(Cuaternion.rotar(rotacion, vector));
-//			if (metodo.equals(ESFERICAS)) System.out.println(((CoordenadaEsferica) RotacionEsferica.rotar(rotacion, vector)).aCuaternion());
 
+		for (int i = 0; i < cantidad; i++)
+		{
+			final CoordenadaEsferica coordenadaEsferica = new CoordenadaEsferica(Math.PI+((1 - Math.random()) *  Math.PI), Math.random() * Math.PI);
+			final Cuaternion cuaternion = coordenadaEsferica.aCuaternion();
+
+			tablaEsfericas.add(coordenadaEsferica);
+			tablaCuaterniones.add(cuaternion);
+		}
+	}
+	
+	private static void rotarLista(List<Rotacion> tabla, List<Vector> tablaVectores, String metodo)
+	{
+//		System.out.println("Modo : "+metodo);
+
+		for (int i=0;i<tabla.size();i++)
+		{
+			final Rotacion rotacion = (Rotacion) tabla.get(i);
+//			System.out.println("U : "+rotacion);
+//			System.out.println("V : "+tablaVectores.get(i));			
+//
+//			 if (metodo.equals(CUATERNIONES)) System.out.println("V': "+Cuaternion.rotar(rotacion,  tablaVectores.get(i)));
+//			 if (metodo.equals(ESFERICAS)) System.out.println("V': "+ RotacionEsferica.rotar(rotacion,  tablaVectores.get(i)));
+						if (metodo.equals(CUATERNIONES)) Cuaternion.rotar(rotacion, tablaVectores.get(i));
+						if (metodo.equals(ESFERICAS)) RotacionEsferica.rotar(rotacion, tablaVectores.get(i));
 		}
 
 	}
-public static void main(String[] args)
-{
-//	final CoordenadaEsferica coordenadaEsferica = new CoordenadaEsferica((1-Math.random())*2*Math.PI, Math.random()*Math.PI);
-//	final RotacionEsferica rotacionEsferica = new RotacionEsferica(coordenadaEsferica, Math.random()*2*Math.PI);
-//	final Cuaternion cuaternion = rotacionEsferica.aCuaternion();
-//	final CoordenadaEsferica vectorEsferico = new CoordenadaEsferica(0, 0);
-//	final Cuaternion vectorCuaternion = vectorEsferico.aCuaternion();
-//	
-//	
-//	 System.out.println(vectorEsferico.aCuaternion().aEsferica().aCuaternion());
-	
-		final CoordenadaEsferica coordenadaEsferica = new CoordenadaEsferica(Math.PI/2,Math.PI/2);
-		final RotacionEsferica rotacionEsferica = new RotacionEsferica(coordenadaEsferica, Math.PI/2);
-		final Cuaternion cuaternion = rotacionEsferica.aCuaternion();
-		final CoordenadaEsferica vectorEsferico = new CoordenadaEsferica(Math.PI/1.5,Math.PI/2);
-		final Cuaternion vectorCuaternion = vectorEsferico.aCuaternion();
-		
-		
-		 System.out.println(vectorEsferico);
-		 System.out.println(rotacionEsferica.rotar(vectorEsferico));
 
-}
+	public static void main(String[] args)
+	{
+		final CoordenadaEsferica coordenadaEsferica = new CoordenadaEsferica((1 - Math.random()) *  Math.PI, Math.random() * Math.PI);
+		final RotacionEsferica rotacionEsferica = new RotacionEsferica(coordenadaEsferica, Math.random() * 2 * Math.PI);
+		 //final Cuaternion cuaternion = rotacionEsferica.aCuaternion();
+			final CoordenadaEsferica vectorEsferico = new CoordenadaEsferica(Math.PI+((1 - Math.random()) *  Math.PI), Math.random() * Math.PI);
+			//final Cuaternion vectorCuaternion = coordenadaEsferica.aCuaternion();
+//			System.out.println(vectorEsferico);			
+//			System.out.println(vectorEsferico.aCuaternion().aCoordenadaEsferica());			
+//
+//		System.out.println(vectorEsferico.aCuaternion());
+//		 System.out.println(vectorEsferico.aCuaternion().aCoordenadaEsferica().aCuaternion());
+
+		 final Cuaternion cuaternion = new Cuaternion(1, 0, 0, Math.toRadians(25));
+		
+			final Cuaternion vectorCuaternion = new Cuaternion(0.707, 0.707, 0);
+
+			System.out.println("Rotacion  "+cuaternion);
+			System.out.println("Punto     "+vectorCuaternion);
+	//	System.out.println(rotacionEsferica.rotar(vectorEsferico).aCuaternion());
+		System.out.println("Resultado "+cuaternion.rotar(vectorCuaternion));
+
+	}
 }
