@@ -101,10 +101,14 @@ public class RotacionEsferica implements Rotacion {
 
 
 		// P'ZU = arc cos(cos(P'ZU))
+		if (cosenoP1ZU>1) cosenoP1ZU=1; //correcciones por decimales
+		if (cosenoP1ZU<-1) cosenoP1ZU=-1;
+		
+		if (cosenoPhiP1>1) cosenoPhiP1=1; //correcciones por decimales
+		if (cosenoPhiP1<-1) cosenoPhiP1=-1;		
 
 		double P1ZU = Math.acos(cosenoP1ZU);
-
-
+		
 		return new CoordenadaEsferica(u.getLambda() + P1ZU,
 				Math.acos(cosenoPhiP1));
 	}
