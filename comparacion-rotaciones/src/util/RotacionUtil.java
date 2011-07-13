@@ -106,10 +106,10 @@ public class RotacionUtil
 
 	public static void main(String[] args)
 	{
-		final CoordenadaEsferica coordenadaEsferica = new CoordenadaEsferica((1 - Math.random()) *  Math.PI, Math.random() * Math.PI);
-		final RotacionEsferica rotacionEsferica = new RotacionEsferica(coordenadaEsferica, Math.random() * 2 * Math.PI);
+	//	final CoordenadaEsferica coordenadaEsferica = new CoordenadaEsferica((1 - Math.random()) *  Math.PI, Math.random() * Math.PI);
+	//	final RotacionEsferica rotacionEsferica = new RotacionEsferica(coordenadaEsferica, Math.random() * 2 * Math.PI);
 		 //final Cuaternion cuaternion = rotacionEsferica.aCuaternion();
-			final CoordenadaEsferica vectorEsferico = new CoordenadaEsferica(Math.PI+((1 - Math.random()) *  Math.PI), Math.random() * Math.PI);
+		//	final CoordenadaEsferica vectorEsferico = new CoordenadaEsferica(Math.PI+((1 - Math.random()) *  Math.PI), Math.random() * Math.PI);
 			//final Cuaternion vectorCuaternion = coordenadaEsferica.aCuaternion();
 //			System.out.println(vectorEsferico);			
 //			System.out.println(vectorEsferico.aCuaternion().aCoordenadaEsferica());			
@@ -117,13 +117,15 @@ public class RotacionUtil
 //		System.out.println(vectorEsferico.aCuaternion());
 //		 System.out.println(vectorEsferico.aCuaternion().aCoordenadaEsferica().aCuaternion());
 
-		 final Cuaternion cuaternion = new Cuaternion(1, 0, 0, Math.toRadians(25));
+		 final Cuaternion cuaternion = new Cuaternion(1, 0, 0, Math.toRadians(90));
 		
-			final Cuaternion vectorCuaternion = new Cuaternion(0.707, 0.707, 0);
+			final Cuaternion vectorCuaternion = new Cuaternion(0, 1, 0);
 
 			System.out.println("Rotacion  "+cuaternion);
 			System.out.println("Punto     "+vectorCuaternion);
-	//	System.out.println(rotacionEsferica.rotar(vectorEsferico).aCuaternion());
+		System.out.println("Resultado "+cuaternion.aRotacionEsferica().rotar(vectorCuaternion.aCoordenadaEsferica()));
+		System.out.println("Resultado "+cuaternion.rotar(vectorCuaternion).aCoordenadaEsferica());
+		System.out.println("Resultado "+cuaternion.aRotacionEsferica().rotar(vectorCuaternion.aCoordenadaEsferica()).aCuaternion());
 		System.out.println("Resultado "+cuaternion.rotar(vectorCuaternion));
 
 	}

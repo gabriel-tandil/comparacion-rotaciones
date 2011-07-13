@@ -33,32 +33,34 @@ public class Cuaternion implements Rotacion, Vector
 		double modulo = getModulo();
 		double phi, lambda;
 
+		double atanSqrtx2y2divZ = Math.atan(Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2)) / z);
 		if (z > 0)
 		{
-			phi = Math.atan(Math.sqrt(x * x + y * y) / z);
+			phi = atanSqrtx2y2divZ;
 		}
 		else if (z < 0)
 		{
-			phi = Math.PI + Math.atan(Math.sqrt(x * x + y * y) / z);
+			phi = Math.PI + atanSqrtx2y2divZ;
 		}
 		else
 		{
 			phi = Math.PI / 2;
 		}
+		double atanYdivX = Math.atan(y / x);
 		if (x > 0)
 		{
 			if (y > 0)
 			{
-				lambda = Math.atan(y / x);
+				lambda = atanYdivX;
 			}
 			else
 			{
-				lambda = 2 * Math.PI + Math.atan(y / x);
+				lambda = 2 * Math.PI + atanYdivX;
 			}
 		}
 		else if (x < 0)
 		{
-			lambda = Math.PI + Math.atan(y / x);
+			lambda = Math.PI + atanYdivX;
 		}
 		else
 		{
@@ -175,11 +177,11 @@ public class Cuaternion implements Rotacion, Vector
 
 	public Cuaternion mult(Cuaternion otro)
 	{
-		Cuaternion otroXangulo = otro.multFactor(getAngulo());
-		Cuaternion esteXotroAngulob = multFactor(otro.getAngulo());
-		Cuaternion vectorial = multVectorial(otro);
-
-		return new Cuaternion(otroXangulo.getX() + esteXotroAngulob.getX() + vectorial.getX(), otroXangulo.getY() + esteXotroAngulob.getY() + vectorial.getY(), otroXangulo.getZ() + esteXotroAngulob.getZ() + vectorial.getZ(), getAngulo() * otro.getAngulo() - multEscalar(otro));
+//		Cuaternion otroXangulo = otro.multFactor(getAngulo());
+//		Cuaternion esteXotroAngulob = multFactor(otro.getAngulo());
+//		Cuaternion vectorial = multVectorial(otro);
+//
+//		return new Cuaternion(otroXangulo.getX() + esteXotroAngulob.getX() + vectorial.getX(), otroXangulo.getY() + esteXotroAngulob.getY() + vectorial.getY(), otroXangulo.getZ() + esteXotroAngulob.getZ() + vectorial.getZ(), getAngulo() * otro.getAngulo() - multEscalar(otro));
 
 		// Cuaternion a = this;
 		// double angulo = a.angulo * otro.angulo - a.x * otro.x - a.y * otro.y - a.z * otro.z;
@@ -206,11 +208,11 @@ public class Cuaternion implements Rotacion, Vector
 		//
 		// return new Cuaternion(w0 * w1 - x0 * x1 - y0 * y1 - z0 * z1, y0 * z1 - z0 * y1 + w0 * x1 + x0 * w1, z0 * x1 - x0 * z1 + w0 * y1 + y0 * w1, x0 * y1 - y0 * x1 + w0 * z1 + z0 * w1);
 
-		// double angulo = this.angulo * otro.angulo - this.x * otro.x - this.y * otro.y - this.z * otro.z;
-		// double x = this.y * otro.z - this.z * otro.y + this.angulo * otro.x + otro.angulo * this.x;
-		// double y = -this.x * otro.z + otro.x * this.z + this.angulo * otro.y + otro.angulo * this.y;
-		// double z = this.x * otro.y - otro.x * this.y + this.angulo * otro.z + otro.angulo * this.z;
-		// return new Cuaternion(x, y, z, angulo);
+		 double angulo = this.angulo * otro.angulo - this.x * otro.x - this.y * otro.y - this.z * otro.z;
+		 double x = this.y * otro.z - this.z * otro.y + this.angulo * otro.x + otro.angulo * this.x;
+		 double y = -this.x * otro.z + otro.x * this.z + this.angulo * otro.y + otro.angulo * this.y;
+		 double z = this.x * otro.y - otro.x * this.y + this.angulo * otro.z + otro.angulo * this.z;
+		 return new Cuaternion(x, y, z, angulo);
 
 		// double escalar = multEscalar(this, otro);
 		//
@@ -222,7 +224,7 @@ public class Cuaternion implements Rotacion, Vector
 		// otro.getAngulo()) - escalar);
 	}
 
-	private Cuaternion multFactor(double escalar)
+	public Cuaternion multFactor(double escalar)
 	{
 		return new Cuaternion(x * escalar, y * escalar, z * escalar, angulo * escalar);
 	}
@@ -241,7 +243,7 @@ public class Cuaternion implements Rotacion, Vector
 
 	public double getModulo()
 	{
-		return Math.sqrt(x * x + y * y + z * z);
+		return Math.sqrt(Math.pow(x ,2) + Math.pow(y ,2) + Math.pow(z ,2));
 	}
 
 	public RotacionEsferica aRotacionEsferica()
