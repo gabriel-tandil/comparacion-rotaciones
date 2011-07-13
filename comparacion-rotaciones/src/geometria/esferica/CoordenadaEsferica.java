@@ -61,4 +61,9 @@ public class CoordenadaEsferica implements Vector
 	{
 		this.radio = radio;
 	}
+	@Override
+	public String toString()
+	{
+		return "phi: "+phi+" lambda: "+ lambda+" radio: "+radio;
+	}
 }

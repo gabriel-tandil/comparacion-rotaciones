@@ -27,8 +27,10 @@ public class Cuaternion implements Rotacion, Vector {
 
 	public CoordenadaEsferica aEsferica() {
 		double modulo = getModulo();
-		double phi = Math.acos(z / modulo);
-		double lambda = Math.acos(x / (modulo * Math.sin(phi)));
+		double phi,lambda;
+		lambda = Math.atan2(Math.sqrt(x*x+y*y),z);
+		phi= Math.atan2(y,x);
+
 		return new CoordenadaEsferica(lambda, phi, modulo);
 	}
 
@@ -145,6 +147,6 @@ public class Cuaternion implements Rotacion, Vector {
 	}
 
 	public String toString() {
-		return angulo + " " + x + " " + y + " " + z;
+		return "x: " + x + " y: " + y + " z: " + z+" angulo: " +angulo;
 	}
 }
