@@ -56,7 +56,7 @@ public class Cuaternion implements Rotacion, Vector {
 
 		// String inspeccion=this.toString();
 		// System.out.println(inspeccion);
-		 String inspeccion = retorno.toString();
+		// String inspeccion = retorno.toString();
 		// System.out.println(inspeccion);
 
 		return retorno;
