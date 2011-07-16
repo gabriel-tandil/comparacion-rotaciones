@@ -134,7 +134,6 @@ public class RotacionEsferica implements Rotacion {
 		}
 		if (rotacion instanceof Cuaternion) {
 			rotacionEsferica = ((Cuaternion) rotacion).aRotacionEsferica();
-
 		}
 		return rotacionEsferica.rotar(vector);
 

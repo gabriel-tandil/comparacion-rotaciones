@@ -24,11 +24,19 @@ public class CoordenadaEsferica implements Vector
 
 	public Cuaternion aCuaternion()
 	{
-	    double x = radio*Math.sin(phi)*Math.cos(lambda); 
-	    double y = radio*Math.sin(phi)*Math.sin(lambda); 
-	    double z = radio*Math.cos(phi); 
-		
-		return new Cuaternion(x, y, z);
+	    double senoPhi=Math.sin(phi);
+		double x = radio*senoPhi*Math.cos(lambda); 
+	    double y = radio*senoPhi*Math.sin(lambda); 
+	    double z = radio*senoPhi; 
+	    
+	    return new Cuaternion(x, y, z);
+
+		// Cuaternion retorno=new Cuaternion(x, y, z);
+		// String inspeccion=this.toString();
+		// // System.out.println(inspeccion);
+		// String inspeccion=retorno.toString();
+		// System.out.println(inspeccion);
+		// return retorno ;
 	}
 
 	public double getLambda()
